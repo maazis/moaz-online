@@ -1,6 +1,6 @@
-# moaz.net
+# about moaz.net
 
-Source for my site: [moaz.net](https://www.moaz.net)
+I made a [website](https://moaz.net) to find info about me.
 
 ## Stack
 
