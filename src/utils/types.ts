@@ -9,14 +9,22 @@ export interface Role {
   items: string[];
 }
 
+export interface CurrentWorks {
+  title: string;
+  journalist: {
+    prefix: string;
+    url: string;
+    text: string;
+  };
+  degree: string;
+  degreeDetail: string;
+}
+
 export interface Content {
   name1: string;
   name2: string;
   subtitle: string;
-  currentWorks: {
-    title: string;
-    items: string[];
-  };
+  currentWorks: CurrentWorks;
   links: {
     samples: Link;
     resume: Link;
@@ -29,9 +37,5 @@ export interface Content {
   roles: {
     writer: Role;
     engineer: Role;
-  };
-  interestItems: {
-    title: string;
-    items: string[];
   };
 }

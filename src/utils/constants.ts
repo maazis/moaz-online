@@ -4,39 +4,31 @@ export const SPOTIFY_EMBED_URL =
   import.meta.env.PUBLIC_SPOTIFY_EMBED_URL ||
   "https://open.spotify.com/embed/track/3Zs6OEJmiSzn4Cwspokmrx?utm_source=generator&theme=0";
 
-export const FOOTER_TEXT_1 = "© 2025 MAAZ ISMAIL.";
+export const FOOTER_TEXT_1 = "© 2026 MAAZ ISMAIL.";
 export const FOOTER_TEXT_2 = "About this website?";
 export const FOOTER_TEXT_3 = "MAAZ IS ONLINE. THANKS FOR COMING.";
 
 export const content: Content = {
-  name1: "MAAZ",
-  name2: "ISMAIL",
-  subtitle: "Germany, 24 y/o",
+  name1: "maaz",
+  name2: "ismail",
+  subtitle: "Germany",
   currentWorks: {
-    title: "At The Moment",
-    items: [
-      "journalist at Impakter",
-      "postgraduate in Philosophy and Computer Science",
-      "literary project on recent South Asian history",
-      "(archival research x narrative fiction)",
-    ],
+    title: "",
+    journalist: {
+      prefix: "Software Engineer & Journalist at ",
+      url: "https://impakter.com/author/maaz-ismail/",
+      text: "Impakter",
+    },
+    degree: "MSc in Philosophy & Computer Science",
+    degreeDetail:
+      "Research focus: algorithmic decision-making, AI safety, technological injustice",
   },
   links: {
-    samples: {
-      url: "https://www.dropbox.com/scl/fo/tph0xutoxkfxk4vpj3aou/ADAsyW8HFeN6UHCLSNSUssQ?rlkey=eyjwflfzt4s3qcnqe5bp0vdec&st=052edpyt&dl=0",
-      text: "WRITING SAMPLES",
-      iconClass: "ph-bold ph-file",
-    },
-    resume: {
-      url: "https://www.dropbox.com/scl/fo/q6qfg2hq4xa4q7criqqy6/AAKfK8V5pS6djxm0kVS2oMk?rlkey=ov0h7myaga966e9exawnt2cp7&dl=0",
-      text: "RESUME / CV",
-      iconClass: "ph-bold ph-folder",
-    },
   },
   contactItems: {
     email: {
-      url: "mailto:ismail@moazz.co",
-      text: "ismail@moazz.co",
+      url: "mailto:ismail@moaz.net",
+      text: "ismail@moaz.net",
       iconClass: "ph-bold ph-envelope-simple mr-1",
     },
     linkedin: {
@@ -49,33 +41,38 @@ export const content: Content = {
       text: "github.com/maazis",
       iconClass: "ph-bold ph-github-logo mr-1",
     },
+    samples: {
+      url: "https://www.dropbox.com/scl/fo/tph0xutoxkfxk4vpj3aou/ADAsyW8HFeN6UHCLSNSUssQ?rlkey=eyjwflfzt4s3qcnqe5bp0vdec&st=052edpyt&dl=0",
+      text: "Writing Samples",
+      iconClass: "ph-bold ph-file",
+    },
+    resume: {
+      url: "https://www.dropbox.com/scl/fo/q6qfg2hq4xa4q7criqqy6/AAKfK8V5pS6djxm0kVS2oMk?rlkey=ov0h7myaga966e9exawnt2cp7&dl=0",
+      text: "Resume / CV",
+      iconClass: "ph-bold ph-folder",
+    },
   },
   roles: {
+    engineer: {
+      title: "Software Engineering",
+      items: [
+        "full-stack engineering",
+        "distributed systems",
+        "authentication",
+        "API design",
+        "database design",
+        "payment systems"
+      ],
+    },
     writer: {
-      title: "writer",
+      title: "Writing",
       items: [
         "journalism",
-        "creative non-fiction",
+        "technical communication",
         "fiction (literary, genre)",
         "theatre playwright/director",
       ],
     },
-    engineer: {
-      title: "backend engineer",
-      items: [
-        "Y Combinator startup in the restaurant industry",
-        "international clientele (details on request)",
-      ],
-    },
-  },
-  interestItems: {
-    title: "interested in",
-    items: [
-      "narrative design",
-      "news media & editorial",
-      "the esports industry (incl. Dota 2)",
-      "culture (incl. Music, fashion)",
-      "literature",
-    ],
+
   },
 };

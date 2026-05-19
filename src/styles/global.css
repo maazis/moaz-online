@@ -9,8 +9,8 @@
   --font-barcode: "Libre Barcode 128", sans-serif;
 
   --color-background: #ebebeb;
-  --color-primary: #494368;
-  --color-accent: #ff5f1f;
+  --color-primary: #58355e;
+  --color-accent: #fc440f;
 }
 
 @layer components {
@@ -28,7 +28,8 @@
 
 .can-bg-change:has(.name-hover-trigger:hover) {
   background-color: #ff0054 !important;
-  --color-accent: #ebebeb;
+  color: #ffe66d;
+  --color-accent: #ffe66d;
 }
 
 /* .can-bg-change:has(.name-hover-trigger:hover) .link:hover {

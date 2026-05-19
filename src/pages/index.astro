@@ -7,98 +7,48 @@ import {
   FOOTER_TEXT_3,
   SPOTIFY_EMBED_URL,
 } from "../utils/constants";
+
+const { title, journalist, degree, degreeDetail } = content.currentWorks;
 ---
 
 <Layout>
   <main class="text-primary can-bg-change">
     <!-- small screen -->
-    <div class="md:hidden flex flex-col gap-8 p-4">
-      <div
-        class="flex justify-center gap-12 font-national-park font-bold text-sm"
-      >
-        <a
-          href={content.links.samples.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link"
-        >
-          <span class="flex items-center gap-1">
-            <i class={content.links.samples.iconClass}></i>
-            {content.links.samples.text}
-          </span>
-        </a>
-        <a
-          href={content.links.resume.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link"
-        >
-          <span class="flex items-center gap-1">
-            <i class={content.links.resume.iconClass}></i>
-            {content.links.resume.text}
-          </span>
-        </a>
-      </div>
-
-      <div class="text-center">
+    <div class="md:hidden flex min-h-screen flex-col gap-8 p-4">
+      <div class="flex flex-col items-start text-left diagonal-squares px-6">
         <h1
-          class="font-special-gothic-expanded text-4xl mb-1 name-hover-trigger"
+          class="font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
         >
-          {content.name1}
-          {content.name2}
+          {content.name1}<br />{content.name2}
         </h1>
-        <p class="text-xs italic font-national-park">{content.subtitle}</p>
+        <p class="font-national-park text-xs">{content.subtitle}</p>
       </div>
 
-      <div>
-        <p class="font-national-park font-semibold mb-1 text-center text-sm">
-          {content.currentWorks.title}
-        </p>
-        <ul class="px-3 list-decimal text-xs text-center">
-          <!-- {content.currentWorks.items.map((item) => <li>{item}</li>)} -->
-          <li>
-            journalist at{" "}
+      <div class="px-6">
+        <p class="font-national-park font-semibold text-center mb-1">{title}</p>
+        <div class="font-national-park space-y-0.5 text-center text-sm">
+          <p>
+            {journalist.prefix}
             <a
-              href="https://impakter.com/"
+              href={journalist.url}
               target="_blank"
               rel="noopener noreferrer"
               class="link"
             >
-              Impakter
+              {journalist.text}
             </a>
-          </li>
-          <li>postgraduate in Philosophy and Computer Science</li>
-          <li>literary project on recent South Asian history</li>
-          (archival research x narrative fiction)
-        </ul>
+          </p>
+          <p class="mt-2">{degree}</p>
+          <p class="italic">{degreeDetail}</p>
+        </div>
       </div>
 
-      <div class="flex flex-col items-center gap-1 font-national-park text-sm">
-        {
-          Object.entries(content.contactItems).map(([key, info]) => (
-            <a
-              href={info.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link"
-            >
-              <span class="flex items-center gap-1">
-                <i class={info.iconClass} />
-                {info.text}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-
-      <div>
+      <div class="flex flex-col items-start justify-center gap-6 px-6">
         {
           Object.entries(content.roles).map(([key, role]) => (
-            <div class={key === "engineer" ? "mt-4" : ""}>
-              <p class="font-national-park font-semibold mb-1 text-sm">
-                {role.title}
-              </p>
-              <ul class="px-3 list-disc text-xs">
+            <div>
+              <p class="font-national-park font-semibold mb-1">{role.title}</p>
+              <ul class="text-left list-disc text-sm">
                 {role.items.map((item) => (
                   <li>{item}</li>
                 ))}
@@ -108,16 +58,36 @@ import {
         }
       </div>
 
-      <div>
-        <p class="font-national-park font-semibold mb-1 text-sm">
-          {content.interestItems.title}
-        </p>
-        <ul class="px-3 list-disc text-xs">
-          {content.interestItems.items.map((item) => <li>{item}</li>)}
-        </ul>
+      <div class="flex items-start justify-center flex-col gap-1 px-1">
+        {
+          Object.entries(content.contactItems).map(([key, info]) => (
+            <a
+              href={info.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link"
+            >
+              <span class="font-national-park flex items-center gap-1">
+                <i class={info.iconClass} />
+                {info.text}
+              </span>
+            </a>
+          ))
+        }
       </div>
 
-      <div class="w-full">
+      <div
+        class="mt-auto flex flex-col items-center font-coral-pixels text-sm px-6 pb-2"
+      >
+        <a
+          class="hover:text-current/70 transition-all duration-50"
+          href="/about-this-website">{FOOTER_TEXT_2}</a
+        >
+        {FOOTER_TEXT_1}
+        <p class="font-barcode">{FOOTER_TEXT_3}</p>
+      </div>
+
+      <!-- <div class="w-full">
         <iframe
           style="border-radius:12px"
           src={SPOTIFY_EMBED_URL}
@@ -129,74 +99,40 @@ import {
           title="Spotify Music Player"
         >
         </iframe>
-      </div>
-
-      <div
-        class="mb-2 flex flex-col items-center justify-center font-coral-pixels text-sm"
-      >
-        <a href="/about-this-website">{FOOTER_TEXT_2}</a>
-        {FOOTER_TEXT_1}
-        <p class="font-barcode">{FOOTER_TEXT_3}</p>
-      </div>
+      </div> -->
     </div>
 
     <!-- large screen -->
     <div
       class="hidden md:grid h-screen w-full grid-cols-3 grid-rows-3 p-4 relative"
     >
-      <div class="order-1 flex items-center justify-end">
-        <a
-          href={content.links.samples.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link"
-        >
-          <span class="font-national-park font-bold flex items-start gap-1">
-            <i class={content.links.samples.iconClass}></i>
-            {content.links.samples.text}
-          </span>
-        </a>
-      </div>
-      <div class="order-2 flex items-center justify-center"></div>
-      <div class="order-3 flex items-center justify-start">
-        <a
-          href={content.links.resume.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link"
-        >
-          <span class="font-national-park font-bold flex items-start gap-1">
-            <i class={content.links.resume.iconClass}></i>
-            {content.links.resume.text}
-          </span>
-        </a>
-      </div>
-      <div class="order-4 flex items-center justify-end">
+      <div class="order-1 flex items-center justify-center"></div>
+
+      <div class="order-2 flex items-center justify-center px-6">
         <div>
-          <p class="font-national-park font-semibold mb-2 text-center">
-            {content.currentWorks.title}
-          </p>
-          <ul class="text-left list-decimal">
-            <!-- {content.currentWorks.items.map((item) => <li>{item}</li>)} -->
-            <li>
-              journalist at{" "}
+          <p class="font-national-park font-semibold text-center mb-1">{title}</p>
+          <div class="font-national-park space-y-0.5 text-center text-sm">
+            <p>
+              {journalist.prefix}
               <a
-                href="https://impakter.com/"
+                href={journalist.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="link"
               >
-                Impakter
+                {journalist.text}
               </a>
-            </li>
-            <li>postgraduate in Philosophy and Computer Science</li>
-            <li>literary project on recent South Asian history</li>
-            (archival research x narrative fiction)
-          </ul>
+            </p>
+            <p class="mt-2">{degree}</p>
+            <p class="italic">{degreeDetail}</p>
+          </div>
         </div>
       </div>
+
+      <div class="order-3 flex flex-col items-start justify-center"></div>
+
       <div
-        class="order-5 flex flex-col items-center justify-center diagonal-squares"
+        class="order-4 flex flex-col items-end justify-center diagonal-squares"
       >
         <h1
           class="font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
@@ -205,6 +141,9 @@ import {
         </h1>
         <p class="font-national-park text-xs">{content.subtitle}</p>
       </div>
+
+      <div class="order-5 flex items-center justify-center"></div>
+
       <div class="order-6 flex flex-col items-start justify-center gap-6">
         {
           Object.entries(content.roles).map(([key, role]) => (
@@ -219,6 +158,7 @@ import {
           ))
         }
       </div>
+
       <div
         class="order-7 flex flex-col items-start justify-end pl-6 font-coral-pixels text-sm"
       >
@@ -229,6 +169,7 @@ import {
         {FOOTER_TEXT_1}
         <p class="font-barcode">{FOOTER_TEXT_3}</p>
       </div>
+
       <div class="order-8 flex items-center justify-center flex-col gap-1">
         {
           Object.entries(content.contactItems).map(([key, info]) => (
@@ -246,18 +187,10 @@ import {
           ))
         }
       </div>
-      <div class="order-9 flex items-center justify-start">
-        <div>
-          <p class="font-national-park font-semibold mb-2">
-            {content.interestItems.title}
-          </p>
-          <ul class="list-disc text-sm">
-            {content.interestItems.items.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      </div>
 
-      <div class="absolute top-0 left-0 right-0 pt-6 flex justify-center">
+      <div class="order-9 flex items-center justify-center"></div>
+
+      <!-- <div class="absolute top-0 left-0 right-0 pt-6 flex justify-center">
         <iframe
           style="border-radius:12px"
           src={SPOTIFY_EMBED_URL}
@@ -269,7 +202,7 @@ import {
           title="Spotify Music Player"
         >
         </iframe>
-      </div>
+      </div> -->
     </div>
   </main></Layout
 >
