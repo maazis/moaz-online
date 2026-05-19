@@ -25,14 +25,12 @@ export interface Content {
   name2: string;
   subtitle: string;
   currentWorks: CurrentWorks;
-  links: {
-    samples: Link;
-    resume: Link;
-  };
   contactItems: {
     email: Link;
     linkedin: Link;
     github: Link;
+    samples: Link;
+    resume: Link;
   };
   roles: {
     writer: Role;

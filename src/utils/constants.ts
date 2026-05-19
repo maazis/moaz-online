@@ -23,8 +23,6 @@ export const content: Content = {
     degreeDetail:
       "Research focus: algorithmic decision-making, AI safety, technological injustice",
   },
-  links: {
-  },
   contactItems: {
     email: {
       url: "mailto:ismail@moaz.net",
