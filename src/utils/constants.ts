@@ -14,8 +14,8 @@ export const content: Content = {
   subtitle: "Germany",
   currentWorks: {
     title: "",
-    journalist: {
-      prefix: "Software Engineer & Journalist at ",
+    bio: {
+      prefix: "Software Engineer & Journalist at",
       url: "https://impakter.com/author/maaz-ismail/",
       text: "Impakter",
     },
@@ -24,6 +24,16 @@ export const content: Content = {
       "Research focus: algorithmic decision-making, AI safety, technological injustice",
   },
   contactItems: {
+    resume: {
+      url: "https://www.dropbox.com/scl/fo/q6qfg2hq4xa4q7criqqy6/AAKfK8V5pS6djxm0kVS2oMk?rlkey=ov0h7myaga966e9exawnt2cp7&dl=0",
+      text: "Resume / CV",
+      iconClass: "ph-bold ph-folder",
+    },
+    samples: {
+      url: "https://www.dropbox.com/scl/fo/tph0xutoxkfxk4vpj3aou/ADAsyW8HFeN6UHCLSNSUssQ?rlkey=eyjwflfzt4s3qcnqe5bp0vdec&st=052edpyt&dl=0",
+      text: "Writing Samples",
+      iconClass: "ph-bold ph-file",
+    },
     email: {
       url: "mailto:ismail@moaz.net",
       text: "ismail@moaz.net",
@@ -39,38 +49,52 @@ export const content: Content = {
       text: "github.com/maazis",
       iconClass: "ph-bold ph-github-logo mr-1",
     },
-    samples: {
-      url: "https://www.dropbox.com/scl/fo/tph0xutoxkfxk4vpj3aou/ADAsyW8HFeN6UHCLSNSUssQ?rlkey=eyjwflfzt4s3qcnqe5bp0vdec&st=052edpyt&dl=0",
-      text: "Writing Samples",
-      iconClass: "ph-bold ph-file",
-    },
-    resume: {
-      url: "https://www.dropbox.com/scl/fo/q6qfg2hq4xa4q7criqqy6/AAKfK8V5pS6djxm0kVS2oMk?rlkey=ov0h7myaga966e9exawnt2cp7&dl=0",
-      text: "Resume / CV",
-      iconClass: "ph-bold ph-folder",
-    },
   },
   roles: {
     engineer: {
       title: "Software Engineering",
       items: [
-        "full-stack engineering",
-        "distributed systems",
-        "authentication",
+        "Full-stack engineering",
         "API design",
-        "database design",
-        "payment systems"
+        "Authentication",
+        "Payment systems",
+        "Distributed systems",
+        "Database design",
       ],
     },
     writer: {
       title: "Writing",
       items: [
-        "journalism",
-        "technical communication",
-        "fiction (literary, genre)",
-        "theatre playwright/director",
+        "Journalism (technology, climate)",
+        "Technical communication",
+        "Fiction (literary, genre)",
+        "Theatre playwright/director",
       ],
     },
-
+  },
+  published: {
+    title: "Recently Published",
+    links: [
+      {
+        url: "https://impakter.com/quantum-computing-and-climate-change/",
+        text: "How Quantum Computing Could Help Address Climate Change",
+        iconClass: "",
+      },
+      {
+        url: "https://impakter.com/disinformation-is-derailing-climate-action-what-can-be-done/",
+        text: "Climate Disinformation Is Derailing Action",
+        iconClass: "",
+      },
+      {
+        url: "https://impakter.com/tesla-vs-waymo-the-trillion-dollar-robotaxi-battle/",
+        text: "Tesla vs. Waymo: The Trillion Dollar Robotaxi Battle",
+        iconClass: "",
+      },
+      {
+        url: "https://impakter.com/what-is-the-environmental-cost-of-generative-ai/",
+        text: "What Is the Environmental Cost of Generative AI?",
+        iconClass: "",
+      },
+    ],
   },
 };

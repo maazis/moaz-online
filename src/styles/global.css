@@ -23,7 +23,9 @@
 }
 
 .can-bg-change {
-  transition: background-color 0.4s, color 0.4s;
+  transition:
+    background-color 0.4s,
+    color 0.4s;
 }
 
 .can-bg-change:has(.name-hover-trigger:hover) {

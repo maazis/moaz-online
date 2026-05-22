@@ -11,7 +11,7 @@ export interface Role {
 
 export interface CurrentWorks {
   title: string;
-  journalist: {
+  bio: {
     prefix: string;
     url: string;
     text: string;
@@ -35,5 +35,9 @@ export interface Content {
   roles: {
     writer: Role;
     engineer: Role;
+  };
+  published: {
+    title: string;
+    links: Link[];
   };
 }

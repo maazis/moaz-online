@@ -8,47 +8,73 @@ import {
   SPOTIFY_EMBED_URL,
 } from "../utils/constants";
 
-const { title, journalist, degree, degreeDetail } = content.currentWorks;
+const { title, bio, degree, degreeDetail } = content.currentWorks;
 ---
 
 <Layout>
   <main class="text-primary can-bg-change">
     <!-- small screen -->
-    <div class="md:hidden flex min-h-screen flex-col gap-8 p-4">
-      <div class="flex flex-col items-start text-left diagonal-squares px-6">
-        <h1
-          class="font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
-        >
-          {content.name1}<br />{content.name2}
-        </h1>
-        <p class="font-national-park text-xs">{content.subtitle}</p>
-      </div>
+    <div class="md:hidden flex min-h-screen flex-col gap-10 p-4 pt-6 pb-6">
+      <div class="flex flex-row">
+        <div class="flex flex-col items-start text-left diagonal-squares px-6">
+          <h1
+            class="font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
+          >
+            {content.name1}<br />{content.name2}
+          </h1>
+          <p class="font-national-park text-xs">{content.subtitle}</p>
+        </div>
 
-      <div class="px-6">
-        <p class="font-national-park font-semibold text-center mb-1">{title}</p>
-        <div class="font-national-park space-y-0.5 text-center text-sm">
-          <p>
-            {journalist.prefix}
-            <a
-              href={journalist.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link"
-            >
-              {journalist.text}
-            </a>
+        <div class="flex flex-col items-start justify-center px-1">
+          <p class="font-national-park font-semibold text-center mb-1">
+            {title}
           </p>
-          <p class="mt-2">{degree}</p>
-          <p class="italic">{degreeDetail}</p>
+          <div class="font-national-park space-y-0.5 text-center text-sm">
+            <p>
+              {bio.prefix}
+              <a
+                href={bio.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link"
+              >
+                {bio.text}
+              </a>
+            </p>
+            <p class="mt-2">{degree}</p>
+            <p class="italic">{degreeDetail}</p>
+          </div>
         </div>
       </div>
 
-      <div class="flex flex-col items-start justify-center gap-6 px-6">
+      <div class="flex flex-col items-start justify-center px-12">
+        <p class="font-national-park font-semibold mb-1">
+          {content.published.title}
+        </p>
+        <ul class="text-left text-sm space-y-2">
+          {
+            content.published.links.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link"
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-row items-start justify-center gap-6 px-6">
         {
           Object.entries(content.roles).map(([key, role]) => (
             <div>
               <p class="font-national-park font-semibold mb-1">{role.title}</p>
-              <ul class="text-left list-disc text-sm">
+              <ul class="text-left list-disc text-sm space-y-2">
                 {role.items.map((item) => (
                   <li>{item}</li>
                 ))}
@@ -58,7 +84,7 @@ const { title, journalist, degree, degreeDetail } = content.currentWorks;
         }
       </div>
 
-      <div class="flex items-start justify-center flex-col gap-1 px-1">
+      <div class="flex flex-col items-center justify-center gap-1">
         {
           Object.entries(content.contactItems).map(([key, info]) => (
             <a
@@ -77,7 +103,7 @@ const { title, journalist, degree, degreeDetail } = content.currentWorks;
       </div>
 
       <div
-        class="mt-auto flex flex-col items-center font-coral-pixels text-sm px-6 pb-2"
+        class="mt-auto flex flex-col items-center font-coral-pixels text-sm px-6"
       >
         <a
           class="hover:text-current/70 transition-all duration-50"
@@ -106,21 +132,23 @@ const { title, journalist, degree, degreeDetail } = content.currentWorks;
     <div
       class="hidden md:grid h-screen w-full grid-cols-3 grid-rows-3 p-4 relative"
     >
-      <div class="order-1 flex items-center justify-center"></div>
+      <div class="order-1 flex flex-row items-center justify-center"></div>
 
       <div class="order-2 flex items-center justify-center px-6">
         <div>
-          <p class="font-national-park font-semibold text-center mb-1">{title}</p>
+          <p class="font-national-park font-semibold text-center mb-1">
+            {title}
+          </p>
           <div class="font-national-park space-y-0.5 text-center text-sm">
             <p>
-              {journalist.prefix}
+              {bio.prefix}
               <a
-                href={journalist.url}
+                href={bio.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="link"
               >
-                {journalist.text}
+                {bio.text}
               </a>
             </p>
             <p class="mt-2">{degree}</p>
@@ -170,7 +198,29 @@ const { title, journalist, degree, degreeDetail } = content.currentWorks;
         <p class="font-barcode">{FOOTER_TEXT_3}</p>
       </div>
 
-      <div class="order-8 flex items-center justify-center flex-col gap-1">
+      <div class="order-8 flex flex-col items-start justify-center px-12">
+        <p class="font-national-park font-semibold mb-1">
+          {content.published.title}
+        </p>
+        <ul class="text-left text-sm">
+          {
+            content.published.links.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link"
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="order-9 flex flex-col items-end justify-end pr-6">
         {
           Object.entries(content.contactItems).map(([key, info]) => (
             <a
@@ -187,8 +237,6 @@ const { title, journalist, degree, degreeDetail } = content.currentWorks;
           ))
         }
       </div>
-
-      <div class="order-9 flex items-center justify-center"></div>
 
       <!-- <div class="absolute top-0 left-0 right-0 pt-6 flex justify-center">
         <iframe
