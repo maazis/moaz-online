@@ -9,18 +9,70 @@ import {
 } from "../utils/constants";
 
 const { title, bio, degree, degreeDetail } = content.currentWorks;
+const name1Characters = [...content.name1];
+const name2Characters = [...content.name2];
+const nameLabel = `${content.name1} ${content.name2}`;
+const loaderText = "connecting to https://www.moaz.net";
+const loaderCharacters = [...loaderText];
 ---
 
 <Layout>
-  <main class="text-primary can-bg-change">
+  <script is:inline>
+    document.documentElement.classList.add("is-loading");
+  </script>
+
+  <div
+    class="site-loader text-primary"
+    data-site-loader
+    role="status"
+    aria-label={loaderText}
+  >
+    <div class="site-loader-mark" aria-hidden="true">
+      {
+        loaderCharacters.map((character) => (
+          <span class="site-loader-char">
+            {character === " " ? "\u00A0" : character}
+          </span>
+        ))
+      }
+      <span class="site-loader-cursor"></span>
+    </div>
+
+    <div class="site-loader-track" aria-hidden="true">
+      <span class="site-loader-progress" data-site-loader-progress></span>
+    </div>
+  </div>
+
+  <main class="landing-page text-primary can-bg-change" data-landing-page>
     <!-- small screen -->
     <div class="md:hidden flex min-h-screen flex-col gap-10 p-4 pt-6 pb-6">
       <div class="flex flex-row">
         <div class="flex flex-col items-start text-left diagonal-squares px-6">
           <h1
-            class="font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
+            class="animated-name font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
+            aria-label={nameLabel}
           >
-            {content.name1}<br />{content.name2}
+            <span aria-hidden="true">
+              <span class="animated-name-line">
+                {
+                  name1Characters.map((character) => (
+                    <span class="animated-name-char">
+                      {character === " " ? "\u00A0" : character}
+                    </span>
+                  ))
+                }
+              </span>
+              <span class="animated-name-line">
+                {
+                  name2Characters.map((character) => (
+                    <span class="animated-name-char">
+                      {character === " " ? "\u00A0" : character}
+                    </span>
+                  ))
+                }
+                <span class="animated-name-cursor"></span>
+              </span>
+            </span>
           </h1>
           <p class="font-national-park text-xs">{content.subtitle}</p>
         </div>
@@ -163,9 +215,30 @@ const { title, bio, degree, degreeDetail } = content.currentWorks;
         class="order-4 flex flex-col items-end justify-center diagonal-squares"
       >
         <h1
-          class="font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
+          class="animated-name font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
+          aria-label={nameLabel}
         >
-          {content.name1}<br />{content.name2}
+          <span aria-hidden="true">
+            <span class="animated-name-line">
+              {
+                name1Characters.map((character) => (
+                  <span class="animated-name-char">
+                    {character === " " ? "\u00A0" : character}
+                  </span>
+                ))
+              }
+            </span>
+            <span class="animated-name-line">
+              {
+                name2Characters.map((character) => (
+                  <span class="animated-name-char">
+                    {character === " " ? "\u00A0" : character}
+                  </span>
+                ))
+              }
+              <span class="animated-name-cursor"></span>
+            </span>
+          </span>
         </h1>
         <p class="font-national-park text-xs">{content.subtitle}</p>
       </div>
@@ -252,5 +325,119 @@ const { title, bio, degree, degreeDetail } = content.currentWorks;
         </iframe>
       </div> -->
     </div>
-  </main></Layout
->
+  </main>
+
+  <script>
+    import { animate } from "animejs";
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!prefersReducedMotion) {
+      const typeNames = () => {
+        document.querySelectorAll(".animated-name").forEach((nameElement) => {
+          if (
+            nameElement.getClientRects().length === 0 ||
+            nameElement instanceof HTMLElement === false ||
+            nameElement.dataset.typed === "true"
+          ) {
+            return;
+          }
+
+          const characters = Array.from(
+            nameElement.querySelectorAll(".animated-name-char"),
+          );
+          const characterWidths = characters.map(
+            (character) => `${character.scrollWidth}px`,
+          );
+
+          nameElement.dataset.typed = "true";
+
+          characters.forEach((character, index) => {
+            animate(character, {
+              opacity: [0, 1],
+              maxWidth: ["0px", characterWidths[index] ?? "0px"],
+              duration: 45,
+              delay: index * 75,
+              ease: "steps(1)",
+            });
+          });
+        });
+      };
+
+      const revealPage = () => {
+        const loader = document.querySelector("[data-site-loader]");
+        const landingPage = document.querySelector("[data-landing-page]");
+
+        document.documentElement.classList.remove("is-loading");
+
+        if (landingPage instanceof HTMLElement) {
+          landingPage.classList.add("is-visible");
+        }
+
+        if (loader instanceof HTMLElement) {
+          animate(loader, {
+            opacity: [1, 0],
+            duration: 220,
+            delay: 120,
+            ease: "outQuad",
+            onComplete: () => {
+              loader.remove();
+            },
+          });
+        }
+
+        typeNames();
+      };
+
+      const runLoader = () => {
+        const loaderCharacters = document.querySelectorAll(".site-loader-char");
+        const loaderProgress = document.querySelector(
+          "[data-site-loader-progress]",
+        );
+        const loaderCharacterWidths = Array.from(loaderCharacters).map(
+          (character) => `${character.scrollWidth}px`,
+        );
+
+        loaderCharacters.forEach((character, index) => {
+          animate(character, {
+            opacity: [0, 1],
+            maxWidth: ["0px", loaderCharacterWidths[index] ?? "0px"],
+            duration: 22,
+            delay: index * 20,
+            ease: "steps(1)",
+          });
+        });
+
+        if (loaderProgress) {
+          animate(loaderProgress, {
+            scaleX: [0, 1],
+            duration: 760,
+            ease: "inOutQuad",
+          });
+        }
+
+        window.setTimeout(revealPage, 950);
+      };
+
+      const startAnimations = () => {
+        if ("fonts" in document) {
+          document.fonts.ready.then(runLoader);
+        } else {
+          runLoader();
+        }
+      };
+
+      startAnimations();
+
+      window.addEventListener("resize", typeNames);
+    } else {
+      document.documentElement.classList.remove("is-loading");
+      document.querySelector("[data-site-loader]")?.remove();
+      document
+        .querySelector("[data-landing-page]")
+        ?.classList.add("is-visible");
+    }
+  </script>
+</Layout>

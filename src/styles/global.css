@@ -34,6 +34,140 @@
   --color-accent: #ffe66d;
 }
 
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: var(--color-background);
+}
+
+.site-loader-mark {
+  font-family: var(--font-national-park);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.site-loader-char {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  vertical-align: top;
+  will-change: max-width, opacity;
+}
+
+.site-loader-cursor,
+.animated-name-cursor {
+  animation: cursor-blink 0.9s steps(1, end) infinite;
+}
+
+.site-loader-cursor {
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.12em;
+  background-color: currentColor;
+  vertical-align: -0.12em;
+}
+
+.site-loader-track {
+  width: min(14rem, 54vw);
+  height: 2px;
+  overflow: hidden;
+  background-color: color-mix(in srgb, currentColor 22%, transparent);
+  transform-origin: left center;
+}
+
+.site-loader-progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.landing-page {
+  opacity: 1;
+}
+
+.is-loading .landing-page {
+  opacity: 0;
+}
+
+.landing-page.is-visible {
+  opacity: 1;
+}
+
+.animated-name-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.animated-name-char {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  vertical-align: top;
+  will-change: max-width, opacity;
+}
+
+.animated-name-cursor {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.9em;
+  margin-left: 0em;
+  background-color: currentColor;
+  vertical-align: -0.1em;
+  will-change: opacity;
+}
+
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader {
+    display: none;
+  }
+
+  .is-loading .landing-page {
+    opacity: 1;
+  }
+
+  .site-loader-char,
+  .animated-name-char {
+    max-width: none;
+    opacity: 1;
+  }
+
+  .site-loader-char,
+  .site-loader-cursor,
+  .site-loader-progress,
+  .animated-name-char,
+  .animated-name-cursor {
+    animation: none;
+    will-change: auto;
+  }
+}
+
 /* .can-bg-change:has(.name-hover-trigger:hover) .link:hover {
   @apply text-white/50;
 } */
