@@ -21,7 +21,7 @@ export const content: Content = {
     },
     degree: "MSc in Philosophy & Computer Science",
     degreeDetail:
-      "Research focus: algorithmic decision-making, AI safety, technological injustice",
+      "Research focus: algorithmic decision-making, AI governance, epistemic injustice",
   },
   contactItems: {
     resume: {
@@ -54,12 +54,12 @@ export const content: Content = {
     engineer: {
       title: "Software Engineering",
       items: [
-        "Full-stack engineering",
+        "Distributed systems",
+        "Backend systems",
         "API design",
         "Authentication",
-        "Payment systems",
-        "Distributed systems",
         "Database design",
+        "Payment systems",
       ],
     },
     writer: {
@@ -67,8 +67,8 @@ export const content: Content = {
       items: [
         "Journalism (technology, climate)",
         "Technical communication",
-        "Fiction (literary, genre)",
-        "Theatre playwright/director",
+        "Fiction & creative nonfiction",
+        "Playwriting & theatre direction",
       ],
     },
   },

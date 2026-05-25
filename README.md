@@ -4,12 +4,13 @@ I made a [website](https://moaz.net) to find info about me.
 
 ### Overview
 
-This website is built with Astro, TypeScript, Tailwind, and deployed with Bun on Cloudflare Pages. Analytics are handled by GoatCounter.
+This website is built with Astro, TypeScript, Tailwind, and Anime.js, and deployed with Bun on Cloudflare Pages. Analytics are handled by GoatCounter.
 
 ### Tech stack
 
 - Astro
 - Tailwind
+- Anime.js
 - TypeScript
 - Bun
 - Cloudflare Pages
