@@ -230,8 +230,15 @@ const loaderCharacters = [...loaderText];
             </span>
             <span class="animated-name-line">
               {
-                name2Characters.map((character) => (
-                  <span class="animated-name-char">
+                name2Characters.map((character, index) => (
+                  <span
+                    class="animated-name-char"
+                    style={
+                      index === 4 || index === 5
+                        ? "transform: scaleX(1.4); display: inline-block;"
+                        : ""
+                    }
+                  >
                     {character === " " ? "\u00A0" : character}
                   </span>
                 ))
