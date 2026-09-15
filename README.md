@@ -26,18 +26,20 @@ This website is built with Astro, TypeScript, Tailwind, and Anime.js, and deploy
 ├─ tsconfig.json
 ├─ README.md
 ├─ public/
+│  ├─ _redirects
 │  ├─ robots.txt
 │  └─ sitemap-index.xml
 ├─ src/
 │  ├─ components/
+│  │  ├─ About.mdx
+│  │  ├─ AboutDialog.astro
 │  │  ├─ Loader.astro
 │  │  ├─ Name.astro
 │  │  └─ TypedChars.astro
 │  ├─ layouts/
 │  │  └─ Layout.astro
 │  ├─ pages/
-│  │  ├─ index.astro
-│  │  └─ about-this-website.mdx
+│  │  └─ index.astro
 │  ├─ styles/
 │  │  └─ global.css
 │  └─ utils/

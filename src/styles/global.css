@@ -181,6 +181,27 @@
   @apply text-white/50;
 } */
 
+/* "About this website" modal */
+.about-dialog {
+  /* Tailwind's preflight zeroes margins; restore the UA centring for dialogs. */
+  margin: auto;
+  width: min(42rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  overflow-y: auto;
+}
+
+.about-dialog::backdrop {
+  background-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.about-dialog-body {
+  padding: 1.5rem 2rem;
+}
+
 .markdown-content {
   @apply font-mono text-sm space-y-1 text-primary;
 }

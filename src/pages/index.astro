@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Loader from "../components/Loader.astro";
 import Name from "../components/Name.astro";
+import AboutDialog from "../components/AboutDialog.astro";
 import {
   content,
   FOOTER_TEXT_1,
@@ -128,14 +129,17 @@ const LOADER_IMAGE = "/drifter.gif";
     <div
       class="[grid-area:footer] self-end md:self-stretch flex flex-col items-center md:items-start md:justify-end px-6 md:pl-6 md:pr-0 font-coral-pixels text-sm"
     >
-      <a
-        class="hover:text-current/70 transition-all duration-50"
-        href="/about-this-website">{FOOTER_TEXT_2}</a
+      <button
+        type="button"
+        class="cursor-pointer hover:text-current/70 transition-all duration-50"
+        data-about-open>{FOOTER_TEXT_2}</button
       >
       {FOOTER_TEXT_1}
       <p class="font-barcode">{FOOTER_TEXT_3}</p>
     </div>
   </main>
+
+  <AboutDialog />
 
   <style>
     .landing-grid {
