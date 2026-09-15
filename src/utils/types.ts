@@ -25,7 +25,7 @@ export interface Content {
   name2: string;
   /** Indices of characters in `name2` rendered wider for visual balance. */
   nameStretchIndices: number[];
-  subtitle: string;
+  subtitle: string[];
   currentWorks: CurrentWorks;
   contactItems: Link[];
   roles: Role[];

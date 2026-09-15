@@ -12,7 +12,7 @@ export const content: Content = {
   name1: "maaz",
   name2: "ismail",
   nameStretchIndices: [4, 5],
-  subtitle: "Germany",
+  subtitle: ["Germany", "Open to new roles", "Available immediately"],
   currentWorks: {
     title: "",
     bio: {
@@ -55,12 +55,12 @@ export const content: Content = {
     {
       title: "Software Engineering",
       items: [
-        "Distributed systems",
-        "Backend systems",
-        "API design",
-        "Authentication",
-        "Database design",
-        "Payment systems",
+        "Shipped full-stack systems",
+        "Backend architecture",
+        "Product ownership",
+        "Firefox contributor",
+        "Built for YC startups",
+        "Payment infrastructure",
       ],
     },
     {

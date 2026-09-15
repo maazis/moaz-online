@@ -6,7 +6,7 @@
 interface Props {
   name1: string;
   name2: string;
-  subtitle: string;
+  subtitle: string[];
   stretchIndices?: number[];
   class?: string;
 }
@@ -28,6 +28,8 @@ const chars = (text: string) => [...text];
     className,
   ]}
 >
+  {/* Shrinks to the name's width so the subtitle lines align with its left edge. */}
+  <div class="w-fit">
   <h1
     class="font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
     aria-label={`${name1} ${name2}`}
@@ -51,5 +53,8 @@ const chars = (text: string) => [...text];
       </span>
     </span>
   </h1>
-  <p class="font-national-park text-xs">{subtitle}</p>
+  <div class="font-national-park text-xs">
+    {subtitle.map((line) => <p>{line}</p>)}
+  </div>
+  </div>
 </div>
