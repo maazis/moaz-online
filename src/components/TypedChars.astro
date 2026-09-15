@@ -1,0 +1,22 @@
+---
+interface Props {
+  text: string;
+  stretchIndices?: number[];
+}
+
+const { text, stretchIndices = [] } = Astro.props;
+const characters = [...text];
+---
+
+{
+  characters.map((character, index) => (
+    <span
+      class:list={[
+        "typed-char",
+        { "scale-x-140": stretchIndices.includes(index) },
+      ]}
+    >
+      {character === " " ? " " : character}
+    </span>
+  ))
+}

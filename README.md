@@ -1,6 +1,6 @@
 ## about moaz.net
 
-I made a [website](https://moaz.net) to find info about me.
+I made a [website](https://moaz.net) about me and what I do.
 
 ### Overview
 
@@ -29,6 +29,10 @@ This website is built with Astro, TypeScript, Tailwind, and Anime.js, and deploy
 │  ├─ robots.txt
 │  └─ sitemap-index.xml
 ├─ src/
+│  ├─ components/
+│  │  ├─ Loader.astro
+│  │  ├─ Name.astro
+│  │  └─ TypedChars.astro
 │  ├─ layouts/
 │  │  └─ Layout.astro
 │  ├─ pages/

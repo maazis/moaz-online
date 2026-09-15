@@ -54,7 +54,7 @@
   white-space: nowrap;
 }
 
-.site-loader-char {
+.typed-char {
   display: inline-block;
   max-width: 0;
   overflow: hidden;
@@ -112,15 +112,6 @@
   white-space: nowrap;
 }
 
-.animated-name-char {
-  display: inline-block;
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  vertical-align: top;
-  will-change: max-width, opacity;
-}
-
 .animated-name-cursor {
   display: inline-block;
   width: 0.3em;
@@ -152,16 +143,14 @@
     opacity: 1;
   }
 
-  .site-loader-char,
-  .animated-name-char {
+  .typed-char {
     max-width: none;
     opacity: 1;
   }
 
-  .site-loader-char,
+  .typed-char,
   .site-loader-cursor,
   .site-loader-progress,
-  .animated-name-char,
   .animated-name-cursor {
     animation: none;
     will-change: auto;

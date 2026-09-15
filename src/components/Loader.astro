@@ -1,0 +1,25 @@
+---
+import TypedChars from "./TypedChars.astro";
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<div
+  class="site-loader text-primary"
+  data-site-loader
+  role="status"
+  aria-label={text}
+>
+  <div class="site-loader-mark" aria-hidden="true">
+    <TypedChars text={text} />
+    <span class="site-loader-cursor"></span>
+  </div>
+
+  <div class="site-loader-track" aria-hidden="true">
+    <span class="site-loader-progress" data-site-loader-progress></span>
+  </div>
+</div>
