@@ -222,36 +222,6 @@ const LOADER_IMAGE = "/drifter.gif";
       ]);
 
     if (!prefersReducedMotion) {
-      const typeName = () => {
-        const nameElement = document.querySelector(".animated-name");
-
-        if (
-          !(nameElement instanceof HTMLElement) ||
-          nameElement.dataset.typed === "true"
-        ) {
-          return;
-        }
-
-        nameElement.dataset.typed = "true";
-
-        const characters = Array.from(
-          nameElement.querySelectorAll<HTMLElement>(".typed-char"),
-        );
-        const widths = characters.map(
-          (character) => `${character.scrollWidth}px`,
-        );
-
-        characters.forEach((character, index) => {
-          animate(character, {
-            opacity: [0, 1],
-            maxWidth: ["0px", widths[index] ?? "0px"],
-            duration: 45,
-            delay: index * 75,
-            ease: "steps(1)",
-          });
-        });
-      };
-
       const revealPage = () => {
         const loader = document.querySelector("[data-site-loader]");
         const landingPage = document.querySelector("[data-landing-page]");
@@ -272,8 +242,6 @@ const LOADER_IMAGE = "/drifter.gif";
             },
           });
         }
-
-        typeName();
       };
 
       Promise.all([delay(LOADER_HOLD_MS), assetsReady()]).then(revealPage);

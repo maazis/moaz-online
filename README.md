@@ -34,8 +34,7 @@ This website is built with Astro, TypeScript, Tailwind, and Anime.js, and deploy
 │  │  ├─ About.mdx
 │  │  ├─ AboutDialog.astro
 │  │  ├─ Loader.astro
-│  │  ├─ Name.astro
-│  │  └─ TypedChars.astro
+│  │  └─ Name.astro
 │  ├─ layouts/
 │  │  └─ Layout.astro
 │  ├─ pages/
