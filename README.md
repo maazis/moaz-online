@@ -73,7 +73,7 @@ The build output is written to `dist/`.
 
 - Fonts: Special Gothic Expanded One, National Park, Coral Pixels, Libre Barcode 128.
 - Icons: [Phosphor](https://phosphoricons.com)
-- Favicon: The Drifter from [Hyper Light Drifter](https://store.steampowered.com/app/257850/Hyper_Light_Drifter/)
+- Favicon and loader: The Drifter from [Hyper Light Drifter](https://store.steampowered.com/app/257850/Hyper_Light_Drifter/)
 - Open Graph image: [GuangYuan YU](https://www.artstation.com/artwork/4bzAOk)
 
 <br />

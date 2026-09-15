@@ -53,65 +53,66 @@
   --color-accent: #ffe66d;
 }
 
+/*
+ * Loader. Only shown when the inline script has run (.has-js), so visitors
+ * without JavaScript see the page directly. If the page script never
+ * arrives, the fail-safe animations below reveal the page after 4s anyway.
+ */
 .site-loader {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  display: none;
+  place-items: center;
   background-color: var(--color-background);
 }
 
-.site-loader-mark {
-  font-family: var(--font-national-park);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
+.has-js .site-loader {
+  display: grid;
+}
+
+.is-loading .site-loader {
+  animation: loader-failsafe 0s 4s forwards;
+}
+
+.site-loader-image {
+  width: min(518px, 80vw);
+  height: auto;
+  /*
+   * The sprite stands in the bottom third of the gif canvas; the headroom is
+   * for its burst animation. Shift up so the character, not the canvas, is
+   * centred in the viewport.
+   */
+  transform: translateY(-29%);
+}
+
+@keyframes loader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    max-width: none;
+  }
 }
 
 .typed-char {
   display: inline-block;
-  max-width: 0;
   overflow: hidden;
-  opacity: 0;
   vertical-align: top;
+}
+
+.has-js .typed-char {
+  max-width: 0;
+  opacity: 0;
   will-change: max-width, opacity;
 }
 
-.site-loader-cursor,
-.animated-name-cursor {
-  animation: cursor-blink 0.9s steps(1, end) infinite;
-}
-
-.site-loader-cursor {
-  display: inline-block;
-  width: 0.08em;
-  height: 1em;
-  margin-left: 0.12em;
-  background-color: currentColor;
-  vertical-align: -0.12em;
-}
-
-.site-loader-track {
-  width: min(14rem, 54vw);
-  height: 2px;
-  overflow: hidden;
-  background-color: color-mix(in srgb, currentColor 22%, transparent);
-  transform-origin: left center;
-}
-
-.site-loader-progress {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-accent);
-  transform: scaleX(0);
-  transform-origin: left center;
-  will-change: transform;
+.is-loading .typed-char {
+  animation: reveal-failsafe 0s 4s forwards;
 }
 
 .landing-page {
@@ -120,6 +121,7 @@
 
 .is-loading .landing-page {
   opacity: 0;
+  animation: reveal-failsafe 0s 4s forwards;
 }
 
 .landing-page.is-visible {
@@ -139,6 +141,7 @@
   background-color: currentColor;
   vertical-align: -0.1em;
   will-change: opacity;
+  animation: cursor-blink 0.9s steps(1, end) infinite;
 }
 
 @keyframes cursor-blink {
@@ -154,7 +157,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-loader {
+  .has-js .site-loader {
     display: none;
   }
 
@@ -162,14 +165,12 @@
     opacity: 1;
   }
 
-  .typed-char {
+  .has-js .typed-char {
     max-width: none;
     opacity: 1;
   }
 
   .typed-char,
-  .site-loader-cursor,
-  .site-loader-progress,
   .animated-name-cursor {
     animation: none;
     will-change: auto;

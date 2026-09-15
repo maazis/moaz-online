@@ -10,15 +10,18 @@ import {
 } from "../utils/constants";
 
 const { title, bio, degree, degreeDetail } = content.currentWorks;
-const loaderText = "connecting to https://www.moaz.net";
+const LOADER_IMAGE = "/drifter.gif";
 ---
 
 <Layout>
+  <link slot="head" rel="preload" as="image" href={LOADER_IMAGE} />
+
   <script is:inline>
-    document.documentElement.classList.add("is-loading");
+    // Runs before first paint so the loader covers the page from the start.
+    document.documentElement.classList.add("has-js", "is-loading");
   </script>
 
-  <Loader text={loaderText} />
+  <Loader src={LOADER_IMAGE} />
 
   <main
     class="landing-page landing-grid text-primary can-bg-change"
@@ -180,26 +183,39 @@ const loaderText = "connecting to https://www.moaz.net";
   <script>
     import { animate } from "animejs";
 
+    /** How long the loader stays up once the page is ready. */
+    const LOADER_HOLD_MS = 1600;
+    /** Never let a slow font or image download hold the page longer than this. */
+    const LOADER_ASSET_TIMEOUT_MS = 2000;
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const typeChars = (
-      characters: HTMLElement[],
-      { duration, step }: { duration: number; step: number },
-    ) => {
-      const widths = characters.map((character) => `${character.scrollWidth}px`);
+    const delay = (ms: number) =>
+      new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
-      characters.forEach((character, index) => {
-        animate(character, {
-          opacity: [0, 1],
-          maxWidth: ["0px", widths[index] ?? "0px"],
-          duration,
-          delay: index * step,
-          ease: "steps(1)",
-        });
+    const loaderImageReady = () => {
+      const image = document.querySelector("[data-site-loader-image]");
+
+      if (!(image instanceof HTMLImageElement) || image.complete) {
+        return Promise.resolve();
+      }
+
+      return new Promise<void>((resolve) => {
+        image.addEventListener("load", () => resolve(), { once: true });
+        image.addEventListener("error", () => resolve(), { once: true });
       });
     };
+
+    const fontsReady = () =>
+      "fonts" in document ? document.fonts.ready.then(() => {}) : Promise.resolve();
+
+    const assetsReady = () =>
+      Promise.race([
+        Promise.all([fontsReady(), loaderImageReady()]),
+        delay(LOADER_ASSET_TIMEOUT_MS),
+      ]);
 
     if (!prefersReducedMotion) {
       const typeName = () => {
@@ -213,10 +229,23 @@ const loaderText = "connecting to https://www.moaz.net";
         }
 
         nameElement.dataset.typed = "true";
-        typeChars(
-          Array.from(nameElement.querySelectorAll<HTMLElement>(".typed-char")),
-          { duration: 45, step: 75 },
+
+        const characters = Array.from(
+          nameElement.querySelectorAll<HTMLElement>(".typed-char"),
         );
+        const widths = characters.map(
+          (character) => `${character.scrollWidth}px`,
+        );
+
+        characters.forEach((character, index) => {
+          animate(character, {
+            opacity: [0, 1],
+            maxWidth: ["0px", widths[index] ?? "0px"],
+            duration: 45,
+            delay: index * 75,
+            ease: "steps(1)",
+          });
+        });
       };
 
       const revealPage = () => {
@@ -233,7 +262,6 @@ const loaderText = "connecting to https://www.moaz.net";
           animate(loader, {
             opacity: [1, 0],
             duration: 220,
-            delay: 120,
             ease: "outQuad",
             onComplete: () => {
               loader.remove();
@@ -244,36 +272,7 @@ const loaderText = "connecting to https://www.moaz.net";
         typeName();
       };
 
-      const runLoader = () => {
-        const loaderProgress = document.querySelector(
-          "[data-site-loader-progress]",
-        );
-
-        typeChars(
-          Array.from(
-            document.querySelectorAll<HTMLElement>(
-              "[data-site-loader] .typed-char",
-            ),
-          ),
-          { duration: 22, step: 20 },
-        );
-
-        if (loaderProgress) {
-          animate(loaderProgress, {
-            scaleX: [0, 1],
-            duration: 760,
-            ease: "inOutQuad",
-          });
-        }
-
-        window.setTimeout(revealPage, 950);
-      };
-
-      if ("fonts" in document) {
-        document.fonts.ready.then(runLoader);
-      } else {
-        runLoader();
-      }
+      Promise.all([delay(LOADER_HOLD_MS), assetsReady()]).then(revealPage);
     } else {
       document.documentElement.classList.remove("is-loading");
       document.querySelector("[data-site-loader]")?.remove();
