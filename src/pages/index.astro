@@ -153,14 +153,26 @@ const loaderText = "connecting to https://www.moaz.net";
 
     @media (min-width: 48rem) {
       .landing-grid {
+        height: 100dvh;
         row-gap: 0;
         padding: 1rem;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: repeat(3, minmax(0, 1fr));
         grid-template-areas:
           ".      bio       ."
           "name   .         roles"
           "footer published contact";
+      }
+    }
+
+    /*
+     * Wide but very short viewports (landscape phones): keep the desktop
+     * arrangement but let the page grow and scroll instead of clipping.
+     */
+    @media (min-width: 48rem) and (height < 30rem) {
+      .landing-grid {
+        height: auto;
+        grid-template-rows: repeat(3, auto);
       }
     }
   </style>

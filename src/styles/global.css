@@ -22,6 +22,25 @@
   }
 }
 
+/*
+ * md+ screens are designed to show the whole site without scrolling. Text is
+ * scaled with viewport height (16px at ≥ 842px tall, floor 12px) so short
+ * laptop viewports fit instead of clipping. Very short viewports (landscape
+ * phones) fall back to scrolling; see the grid rules in index.astro.
+ */
+@media (min-width: 48rem) {
+  html {
+    font-size: clamp(12px, 1.90vh, 16px);
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 30rem) {
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
 .can-bg-change {
   transition:
     background-color 0.4s,
