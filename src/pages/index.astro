@@ -1,378 +1,227 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Loader from "../components/Loader.astro";
+import Name from "../components/Name.astro";
+import AboutDialog from "../components/AboutDialog.astro";
 import {
   content,
   FOOTER_TEXT_1,
   FOOTER_TEXT_2,
   FOOTER_TEXT_3,
-  SPOTIFY_EMBED_URL,
 } from "../utils/constants";
 
 const { title, bio, degree, degreeDetail } = content.currentWorks;
-const name1Characters = [...content.name1];
-const name2Characters = [...content.name2];
-const nameLabel = `${content.name1} ${content.name2}`;
-const loaderText = "connecting to https://www.moaz.net";
-const loaderCharacters = [...loaderText];
+const LOADER_IMAGE = "/drifter.gif";
 ---
 
 <Layout>
+  <link slot="head" rel="preload" as="image" href={LOADER_IMAGE} />
+
   <script is:inline>
-    document.documentElement.classList.add("is-loading");
+    // Runs before first paint so the loader covers the page from the start.
+    document.documentElement.classList.add("has-js", "is-loading");
   </script>
 
-  <div
-    class="site-loader text-primary"
-    data-site-loader
-    role="status"
-    aria-label={loaderText}
+  <Loader src={LOADER_IMAGE} />
+
+  <main
+    class="landing-page landing-grid text-primary can-bg-change"
+    data-landing-page
   >
-    <div class="site-loader-mark" aria-hidden="true">
+    <Name
+      class="[grid-area:name]"
+      name1={content.name1}
+      name2={content.name2}
+      subtitle={content.subtitle}
+      stretchIndices={content.nameStretchIndices}
+    />
+
+    <div
+      class="[grid-area:bio] flex items-center justify-start md:justify-center px-1 md:px-6"
+    >
+      <div>
+        {
+          title && (
+            <p class="font-national-park font-semibold text-center mb-1">
+              {title}
+            </p>
+          )
+        }
+        <div class="font-national-park space-y-0.5 text-center text-sm">
+          <p>
+            {bio.prefix}
+            <a
+              href={bio.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link"
+            >
+              {bio.text}
+            </a>
+          </p>
+          <p class="mt-2">{degree}</p>
+          <p class="italic">{degreeDetail}</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="[grid-area:published] flex flex-col items-start justify-center px-12"
+    >
+      <p class="font-national-park font-semibold mb-1">
+        {content.published.title}
+      </p>
+      <ul class="text-left text-sm space-y-2 md:space-y-0">
+        {
+          content.published.links.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link"
+              >
+                {link.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div
+      class="[grid-area:roles] flex flex-row md:flex-col items-start justify-center gap-6 px-6 md:px-0"
+    >
       {
-        loaderCharacters.map((character) => (
-          <span class="site-loader-char">
-            {character === " " ? "\u00A0" : character}
-          </span>
+        content.roles.map((role) => (
+          <div>
+            <p class="font-national-park font-semibold mb-1">{role.title}</p>
+            <ul class="text-left list-disc text-sm space-y-2 md:space-y-0">
+              {role.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
         ))
       }
-      <span class="site-loader-cursor"></span>
     </div>
 
-    <div class="site-loader-track" aria-hidden="true">
-      <span class="site-loader-progress" data-site-loader-progress></span>
-    </div>
-  </div>
-
-  <main class="landing-page text-primary can-bg-change" data-landing-page>
-    <!-- small screen -->
-    <div class="md:hidden flex min-h-screen flex-col gap-10 p-4 pt-6 pb-6">
-      <div class="flex flex-row">
-        <div class="flex flex-col items-start text-left diagonal-squares px-6">
-          <h1
-            class="animated-name font-special-gothic-expanded text-5xl mb-2 name-hover-trigger"
-            aria-label={nameLabel}
-          >
-            <span aria-hidden="true">
-              <span class="animated-name-line">
-                {
-                  name1Characters.map((character) => (
-                    <span class="animated-name-char">
-                      {character === " " ? "\u00A0" : character}
-                    </span>
-                  ))
-                }
-              </span>
-              <span class="animated-name-line">
-                {
-                  name2Characters.map((character) => (
-                    <span class="animated-name-char">
-                      {character === " " ? "\u00A0" : character}
-                    </span>
-                  ))
-                }
-                <span class="animated-name-cursor"></span>
-              </span>
-            </span>
-          </h1>
-          <p class="font-national-park text-xs">{content.subtitle}</p>
-        </div>
-
-        <div class="flex flex-col items-start justify-center px-1">
-          <p class="font-national-park font-semibold text-center mb-1">
-            {title}
-          </p>
-          <div class="font-national-park space-y-0.5 text-center text-sm">
-            <p>
-              {bio.prefix}
-              <a
-                href={bio.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="link"
-              >
-                {bio.text}
-              </a>
-            </p>
-            <p class="mt-2">{degree}</p>
-            <p class="italic">{degreeDetail}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col items-start justify-center px-12">
-        <p class="font-national-park font-semibold mb-1">
-          {content.published.title}
-        </p>
-        <ul class="text-left text-sm space-y-2">
-          {
-            content.published.links.map((link) => (
-              <li>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link"
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class="flex flex-row items-start justify-center gap-6 px-6">
-        {
-          Object.entries(content.roles).map(([key, role]) => (
-            <div>
-              <p class="font-national-park font-semibold mb-1">{role.title}</p>
-              <ul class="text-left list-disc text-sm space-y-2">
-                {role.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="flex flex-col items-center justify-center gap-1">
-        {
-          Object.entries(content.contactItems).map(([key, info]) => (
-            <a
-              href={info.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link"
-            >
-              <span class="font-national-park flex items-center gap-1">
-                <i class={info.iconClass} />
-                {info.text}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-
-      <div
-        class="mt-auto flex flex-col items-center font-coral-pixels text-sm px-6"
-      >
-        <a
-          class="hover:text-current/70 transition-all duration-50"
-          href="/about-this-website">{FOOTER_TEXT_2}</a
-        >
-        {FOOTER_TEXT_1}
-        <p class="font-barcode">{FOOTER_TEXT_3}</p>
-      </div>
-
-      <!-- <div class="w-full">
-        <iframe
-          style="border-radius:12px"
-          src={SPOTIFY_EMBED_URL}
-          width="100%"
-          height="80"
-          allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          title="Spotify Music Player"
-        >
-        </iframe>
-      </div> -->
-    </div>
-
-    <!-- large screen -->
     <div
-      class="hidden md:grid h-screen w-full grid-cols-3 grid-rows-3 p-4 relative"
+      class="[grid-area:contact] flex flex-col items-center md:items-end justify-center md:justify-end gap-1 md:gap-0 md:pr-6"
     >
-      <div class="order-1 flex flex-row items-center justify-center"></div>
-
-      <div class="order-2 flex items-center justify-center px-6">
-        <div>
-          <p class="font-national-park font-semibold text-center mb-1">
-            {title}
-          </p>
-          <div class="font-national-park space-y-0.5 text-center text-sm">
-            <p>
-              {bio.prefix}
-              <a
-                href={bio.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="link"
-              >
-                {bio.text}
-              </a>
-            </p>
-            <p class="mt-2">{degree}</p>
-            <p class="italic">{degreeDetail}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="order-3 flex flex-col items-start justify-center"></div>
-
-      <div
-        class="order-4 flex flex-col items-end justify-center diagonal-squares"
-      >
-        <h1
-          class="animated-name font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
-          aria-label={nameLabel}
-        >
-          <span aria-hidden="true">
-            <span class="animated-name-line">
-              {
-                name1Characters.map((character) => (
-                  <span class="animated-name-char">
-                    {character === " " ? "\u00A0" : character}
-                  </span>
-                ))
-              }
+      {
+        content.contactItems.map((item) => (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link"
+          >
+            <span class="font-national-park flex items-center gap-1">
+              <i class={item.iconClass} aria-hidden="true" />
+              {item.text}
             </span>
-            <span class="animated-name-line">
-              {
-                name2Characters.map((character, index) => (
-                  <span
-                    class="animated-name-char"
-                    style={
-                      index === 4 || index === 5
-                        ? "transform: scaleX(1.4); display: inline-block;"
-                        : ""
-                    }
-                  >
-                    {character === " " ? "\u00A0" : character}
-                  </span>
-                ))
-              }
-              <span class="animated-name-cursor"></span>
-            </span>
-          </span>
-        </h1>
-        <p class="font-national-park text-xs">{content.subtitle}</p>
-      </div>
+          </a>
+        ))
+      }
+    </div>
 
-      <div class="order-5 flex items-center justify-center"></div>
-
-      <div class="order-6 flex flex-col items-start justify-center gap-6">
-        {
-          Object.entries(content.roles).map(([key, role]) => (
-            <div>
-              <p class="font-national-park font-semibold mb-1">{role.title}</p>
-              <ul class="text-left list-disc text-sm">
-                {role.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-
-      <div
-        class="order-7 flex flex-col items-start justify-end pl-6 font-coral-pixels text-sm"
+    <div
+      class="[grid-area:footer] self-end md:self-stretch flex flex-col items-center md:items-start md:justify-end px-6 md:pl-6 md:pr-0 font-coral-pixels text-sm"
+    >
+      <button
+        type="button"
+        class="cursor-pointer hover:text-current/70 transition-all duration-50"
+        data-about-open>{FOOTER_TEXT_2}</button
       >
-        <a
-          class="hover:text-current/70 transition-all duration-50"
-          href="/about-this-website">{FOOTER_TEXT_2}</a
-        >
-        {FOOTER_TEXT_1}
-        <p class="font-barcode">{FOOTER_TEXT_3}</p>
-      </div>
-
-      <div class="order-8 flex flex-col items-start justify-center px-12">
-        <p class="font-national-park font-semibold mb-1">
-          {content.published.title}
-        </p>
-        <ul class="text-left text-sm">
-          {
-            content.published.links.map((link) => (
-              <li>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link"
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class="order-9 flex flex-col items-end justify-end pr-6">
-        {
-          Object.entries(content.contactItems).map(([key, info]) => (
-            <a
-              href={info.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link"
-            >
-              <span class="font-national-park flex items-center gap-1">
-                <i class={info.iconClass} />
-                {info.text}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-
-      <!-- <div class="absolute top-0 left-0 right-0 pt-6 flex justify-center">
-        <iframe
-          style="border-radius:12px"
-          src={SPOTIFY_EMBED_URL}
-          width="40%"
-          height="80"
-          allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          title="Spotify Music Player"
-        >
-        </iframe>
-      </div> -->
+      {FOOTER_TEXT_1}
+      <p class="font-barcode">{FOOTER_TEXT_3}</p>
     </div>
   </main>
 
+  <AboutDialog />
+
+  <style>
+    .landing-grid {
+      display: grid;
+      min-height: 100dvh;
+      row-gap: 2.5rem;
+      column-gap: 0;
+      padding: 1.5rem 1rem;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto auto auto 1fr;
+      grid-template-areas:
+        "name      bio"
+        "published published"
+        "roles     roles"
+        "contact   contact"
+        "footer    footer";
+    }
+
+    @media (min-width: 48rem) {
+      .landing-grid {
+        height: 100dvh;
+        row-gap: 0;
+        padding: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        grid-template-areas:
+          ".      bio       ."
+          "name   .         roles"
+          "footer published contact";
+      }
+    }
+
+    /*
+     * Wide but very short viewports (landscape phones): keep the desktop
+     * arrangement but let the page grow and scroll instead of clipping.
+     */
+    @media (min-width: 48rem) and (height < 30rem) {
+      .landing-grid {
+        height: auto;
+        grid-template-rows: repeat(3, auto);
+      }
+    }
+  </style>
+
   <script>
     import { animate } from "animejs";
+
+    /** How long the loader stays up once the page is ready. */
+    const LOADER_HOLD_MS = 1600;
+    /** Never let a slow font or image download hold the page longer than this. */
+    const LOADER_ASSET_TIMEOUT_MS = 2000;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
+    const delay = (ms: number) =>
+      new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+
+    const loaderImageReady = () => {
+      const image = document.querySelector("[data-site-loader-image]");
+
+      if (!(image instanceof HTMLImageElement) || image.complete) {
+        return Promise.resolve();
+      }
+
+      return new Promise<void>((resolve) => {
+        image.addEventListener("load", () => resolve(), { once: true });
+        image.addEventListener("error", () => resolve(), { once: true });
+      });
+    };
+
+    const fontsReady = () =>
+      "fonts" in document ? document.fonts.ready.then(() => {}) : Promise.resolve();
+
+    const assetsReady = () =>
+      Promise.race([
+        Promise.all([fontsReady(), loaderImageReady()]),
+        delay(LOADER_ASSET_TIMEOUT_MS),
+      ]);
+
     if (!prefersReducedMotion) {
-      const typeNames = () => {
-        document.querySelectorAll(".animated-name").forEach((nameElement) => {
-          if (
-            nameElement.getClientRects().length === 0 ||
-            nameElement instanceof HTMLElement === false ||
-            nameElement.dataset.typed === "true"
-          ) {
-            return;
-          }
-
-          const characters = Array.from(
-            nameElement.querySelectorAll(".animated-name-char"),
-          );
-          const characterWidths = characters.map(
-            (character) => `${character.scrollWidth}px`,
-          );
-
-          nameElement.dataset.typed = "true";
-
-          characters.forEach((character, index) => {
-            animate(character, {
-              opacity: [0, 1],
-              maxWidth: ["0px", characterWidths[index] ?? "0px"],
-              duration: 45,
-              delay: index * 75,
-              ease: "steps(1)",
-            });
-          });
-        });
-      };
-
       const revealPage = () => {
         const loader = document.querySelector("[data-site-loader]");
         const landingPage = document.querySelector("[data-landing-page]");
@@ -387,58 +236,15 @@ const loaderCharacters = [...loaderText];
           animate(loader, {
             opacity: [1, 0],
             duration: 220,
-            delay: 120,
             ease: "outQuad",
             onComplete: () => {
               loader.remove();
             },
           });
         }
-
-        typeNames();
       };
 
-      const runLoader = () => {
-        const loaderCharacters = document.querySelectorAll(".site-loader-char");
-        const loaderProgress = document.querySelector(
-          "[data-site-loader-progress]",
-        );
-        const loaderCharacterWidths = Array.from(loaderCharacters).map(
-          (character) => `${character.scrollWidth}px`,
-        );
-
-        loaderCharacters.forEach((character, index) => {
-          animate(character, {
-            opacity: [0, 1],
-            maxWidth: ["0px", loaderCharacterWidths[index] ?? "0px"],
-            duration: 22,
-            delay: index * 20,
-            ease: "steps(1)",
-          });
-        });
-
-        if (loaderProgress) {
-          animate(loaderProgress, {
-            scaleX: [0, 1],
-            duration: 760,
-            ease: "inOutQuad",
-          });
-        }
-
-        window.setTimeout(revealPage, 950);
-      };
-
-      const startAnimations = () => {
-        if ("fonts" in document) {
-          document.fonts.ready.then(runLoader);
-        } else {
-          runLoader();
-        }
-      };
-
-      startAnimations();
-
-      window.addEventListener("resize", typeNames);
+      Promise.all([delay(LOADER_HOLD_MS), assetsReady()]).then(revealPage);
     } else {
       document.documentElement.classList.remove("is-loading");
       document.querySelector("[data-site-loader]")?.remove();

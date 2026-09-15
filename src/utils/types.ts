@@ -1,7 +1,7 @@
 export interface Link {
   url: string;
   text: string;
-  iconClass: string;
+  iconClass?: string;
 }
 
 export interface Role {
@@ -23,19 +23,12 @@ export interface CurrentWorks {
 export interface Content {
   name1: string;
   name2: string;
-  subtitle: string;
+  /** Indices of characters in `name2` rendered wider for visual balance. */
+  nameStretchIndices: number[];
+  subtitle: string[];
   currentWorks: CurrentWorks;
-  contactItems: {
-    email: Link;
-    linkedin: Link;
-    github: Link;
-    samples: Link;
-    resume: Link;
-  };
-  roles: {
-    writer: Role;
-    engineer: Role;
-  };
+  contactItems: Link[];
+  roles: Role[];
   published: {
     title: string;
     links: Link[];

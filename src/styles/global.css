@@ -22,6 +22,25 @@
   }
 }
 
+/*
+ * md+ screens are designed to show the whole site without scrolling. Text is
+ * scaled with viewport height (16px at ≥ 842px tall, floor 12px) so short
+ * laptop viewports fit instead of clipping. Very short viewports (landscape
+ * phones) fall back to scrolling; see the grid rules in index.astro.
+ */
+@media (min-width: 48rem) {
+  html {
+    font-size: clamp(12px, 1.90vh, 16px);
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 30rem) {
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
 .can-bg-change {
   transition:
     background-color 0.4s,
@@ -34,65 +53,49 @@
   --color-accent: #ffe66d;
 }
 
+/*
+ * Loader. Only shown when the inline script has run (.has-js), so visitors
+ * without JavaScript see the page directly. If the page script never
+ * arrives, the fail-safe animations below reveal the page after 4s anyway.
+ */
 .site-loader {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  display: none;
+  place-items: center;
   background-color: var(--color-background);
 }
 
-.site-loader-mark {
-  font-family: var(--font-national-park);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
+.has-js .site-loader {
+  display: grid;
 }
 
-.site-loader-char {
-  display: inline-block;
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  vertical-align: top;
-  will-change: max-width, opacity;
+.is-loading .site-loader {
+  animation: loader-failsafe 0s 4s forwards;
 }
 
-.site-loader-cursor,
-.animated-name-cursor {
-  animation: cursor-blink 0.9s steps(1, end) infinite;
+.site-loader-image {
+  width: min(518px, 80vw);
+  height: auto;
+  /*
+   * The sprite stands in the bottom third of the gif canvas; the headroom is
+   * for its burst animation. Shift up so the character, not the canvas, is
+   * centred in the viewport.
+   */
+  transform: translateY(-29%);
 }
 
-.site-loader-cursor {
-  display: inline-block;
-  width: 0.08em;
-  height: 1em;
-  margin-left: 0.12em;
-  background-color: currentColor;
-  vertical-align: -0.12em;
+@keyframes loader-failsafe {
+  to {
+    visibility: hidden;
+  }
 }
 
-.site-loader-track {
-  width: min(14rem, 54vw);
-  height: 2px;
-  overflow: hidden;
-  background-color: color-mix(in srgb, currentColor 22%, transparent);
-  transform-origin: left center;
-}
-
-.site-loader-progress {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-accent);
-  transform: scaleX(0);
-  transform-origin: left center;
-  will-change: transform;
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+  }
 }
 
 .landing-page {
@@ -101,34 +104,29 @@
 
 .is-loading .landing-page {
   opacity: 0;
+  animation: reveal-failsafe 0s 4s forwards;
 }
 
 .landing-page.is-visible {
   opacity: 1;
 }
 
-.animated-name-line {
+.name-line {
   display: block;
   white-space: nowrap;
 }
 
-.animated-name-char {
+.name-char {
   display: inline-block;
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  vertical-align: top;
-  will-change: max-width, opacity;
 }
 
-.animated-name-cursor {
+.name-cursor {
   display: inline-block;
   width: 0.3em;
   height: 0.9em;
-  margin-left: 0em;
   background-color: currentColor;
   vertical-align: -0.1em;
-  will-change: opacity;
+  animation: cursor-blink 0.9s steps(1, end) infinite;
 }
 
 @keyframes cursor-blink {
@@ -144,7 +142,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-loader {
+  .has-js .site-loader {
     display: none;
   }
 
@@ -152,25 +150,35 @@
     opacity: 1;
   }
 
-  .site-loader-char,
-  .animated-name-char {
-    max-width: none;
-    opacity: 1;
-  }
-
-  .site-loader-char,
-  .site-loader-cursor,
-  .site-loader-progress,
-  .animated-name-char,
-  .animated-name-cursor {
+  .name-cursor {
     animation: none;
-    will-change: auto;
   }
 }
 
 /* .can-bg-change:has(.name-hover-trigger:hover) .link:hover {
   @apply text-white/50;
 } */
+
+/* "About this website" modal */
+.about-dialog {
+  /* Tailwind's preflight zeroes margins; restore the UA centring for dialogs. */
+  margin: auto;
+  width: min(42rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  overflow-y: auto;
+}
+
+.about-dialog::backdrop {
+  background-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.about-dialog-body {
+  padding: 1.5rem 2rem;
+}
 
 .markdown-content {
   @apply font-mono text-sm space-y-1 text-primary;

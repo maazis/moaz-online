@@ -1,0 +1,60 @@
+---
+/**
+ * The site name with a blinking cursor. Characters are wrapped individually
+ * only so that `stretchIndices` can widen selected letters of the second line.
+ */
+interface Props {
+  name1: string;
+  name2: string;
+  subtitle: string[];
+  stretchIndices?: number[];
+  class?: string;
+}
+
+const {
+  name1,
+  name2,
+  subtitle,
+  stretchIndices = [],
+  class: className,
+} = Astro.props;
+
+const chars = (text: string) => [...text];
+---
+
+<div
+  class:list={[
+    "flex flex-col items-start md:items-end md:justify-center px-6 md:px-0",
+    className,
+  ]}
+>
+  {/* Shrinks to the name's width so the subtitle lines align with its left edge. */}
+  <div class="w-fit">
+  <h1
+    class="font-special-gothic-expanded text-5xl mb-2 text-left name-hover-trigger"
+    aria-label={`${name1} ${name2}`}
+  >
+    <span aria-hidden="true">
+      <span class="name-line">
+        {chars(name1).map((character) => <span class="name-char">{character}</span>)}
+      </span>
+      <span class="name-line">
+        {
+          chars(name2).map((character, index) => (
+            <span
+              class:list={[
+                "name-char",
+                { "scale-x-140": stretchIndices.includes(index) },
+              ]}
+            >{character}</span>
+          ))
+        }
+        <span class="name-cursor"></span>
+      </span>
+    </span>
+  </h1>
+  <div class="font-national-park text-xs">
+    {subtitle.map((line) => <p>{line}</p>)}
+  </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 ## about moaz.net
 
-I made a [website](https://moaz.net) to find info about me.
+I made a [website](https://moaz.net) about me and what I do.
 
 ### Overview
 
@@ -26,14 +26,19 @@ This website is built with Astro, TypeScript, Tailwind, and Anime.js, and deploy
 ├─ tsconfig.json
 ├─ README.md
 ├─ public/
+│  ├─ _redirects
 │  ├─ robots.txt
 │  └─ sitemap-index.xml
 ├─ src/
+│  ├─ components/
+│  │  ├─ About.mdx
+│  │  ├─ AboutDialog.astro
+│  │  ├─ Loader.astro
+│  │  └─ Name.astro
 │  ├─ layouts/
 │  │  └─ Layout.astro
 │  ├─ pages/
-│  │  ├─ index.astro
-│  │  └─ about-this-website.mdx
+│  │  └─ index.astro
 │  ├─ styles/
 │  │  └─ global.css
 │  └─ utils/
@@ -69,7 +74,7 @@ The build output is written to `dist/`.
 
 - Fonts: Special Gothic Expanded One, National Park, Coral Pixels, Libre Barcode 128.
 - Icons: [Phosphor](https://phosphoricons.com)
-- Favicon: The Drifter from [Hyper Light Drifter](https://store.steampowered.com/app/257850/Hyper_Light_Drifter/)
+- Favicon and loader: The Drifter from [Hyper Light Drifter](https://store.steampowered.com/app/257850/Hyper_Light_Drifter/)
 - Open Graph image: [GuangYuan YU](https://www.artstation.com/artwork/4bzAOk)
 
 <br />

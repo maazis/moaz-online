@@ -1,0 +1,20 @@
+---
+interface Props {
+  src: string;
+}
+
+const { src } = Astro.props;
+---
+
+<div class="site-loader" data-site-loader role="status" aria-label="Loading">
+  <img
+    class="site-loader-image"
+    src={src}
+    alt=""
+    width="518"
+    height="252"
+    decoding="async"
+    fetchpriority="high"
+    data-site-loader-image
+  />
+</div>

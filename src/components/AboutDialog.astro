@@ -1,0 +1,50 @@
+---
+/**
+ * "About this website" as a modal. Content lives in About.mdx.
+ * Opened by any element carrying `data-about-open`.
+ */
+import About from "./About.mdx";
+---
+
+<dialog class="about-dialog" data-about-dialog aria-labelledby="about-title">
+  <div class="about-dialog-body markdown-content">
+    <button
+      type="button"
+      class="font-coral-pixels mb-8 block cursor-pointer hover:text-current/70 transition-all duration-50"
+      data-about-close
+    >
+      Return to main?
+    </button>
+    <About />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector("[data-about-dialog]");
+
+  if (dialog instanceof HTMLDialogElement) {
+    document.querySelectorAll("[data-about-open]").forEach((trigger) => {
+      trigger.addEventListener("click", () => dialog.showModal());
+    });
+
+    dialog
+      .querySelector("[data-about-close]")
+      ?.addEventListener("click", () => dialog.close());
+
+    // A click on the dialog element itself (not its body) is a backdrop click.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+
+    // Browsers close modal dialogs on Escape natively; this keeps that true
+    // in embedded browsers that swallow the close request.
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        dialog.close();
+      }
+    });
+  }
+</script>
