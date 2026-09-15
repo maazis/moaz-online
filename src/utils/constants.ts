@@ -26,12 +26,12 @@ export const content: Content = {
   },
   contactItems: [
     {
-      url: "https://www.dropbox.com/scl/fo/q6qfg2hq4xa4q7criqqy6/AAKfK8V5pS6djxm0kVS2oMk?rlkey=ov0h7myaga966e9exawnt2cp7&dl=0",
+      url: "https://www.dropbox.com/scl/fo/ppdyruewkr16ujn10b57v/AKtQVnz-uneSIyesGpC-ktk?rlkey=kre7fkbfxux1unciqvybwhrxs&st=tugqxa40&dl=0",
       text: "Resume / CV",
       iconClass: "ph-bold ph-folder",
     },
     {
-      url: "https://www.dropbox.com/scl/fo/tph0xutoxkfxk4vpj3aou/ADAsyW8HFeN6UHCLSNSUssQ?rlkey=eyjwflfzt4s3qcnqe5bp0vdec&st=052edpyt&dl=0",
+      url: "https://www.dropbox.com/scl/fo/jdvmbdk1fpktkyw159xgz/AJ9tw3CEdT4aO8IvyDUTGZY?rlkey=ianbae5g7x8bhkoqqwejznjqa&st=8vnkwc9m&dl=0",
       text: "Writing Samples",
       iconClass: "ph-bold ph-file",
     },
